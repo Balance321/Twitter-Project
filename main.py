@@ -1,12 +1,10 @@
-import tweepy
-import keys_test as keys
+import mal_api
+import twitter_api
 
-client = tweepy.Client(consumer_key=keys.api_key,
-                       consumer_secret=keys.api_secret,
-                       access_token=keys.access_token,
-                       access_token_secret=keys.access_token_secret)
+def main(): 
+    top10Tweet = mal_api.generateTop10()
+    twitter_api.generateTweet(top10Tweet)
+    print('Tweeted Successfully')
 
-# Replace the text with whatever you want to Tweet about
-client.create_tweet(text='this tweet is from my balls')
-
-print('Tweeted Successfully')
+if __name__ == "__main__":
+    main()
