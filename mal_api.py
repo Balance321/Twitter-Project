@@ -1,8 +1,13 @@
 import keys_test as keys
 import requests
+from date import currentYear
+from date import currWeek
+from date import currSeason
 
 def generateTop10(): 
-    url = 'https://api.myanimelist.net/v2/anime/season/2023/summer?sort=anime_num_list_users&limit=50&nsfw=true'
+    print(currentYear, currWeek, currSeason)
+
+    url = f"https://api.myanimelist.net/v2/anime/season/{str(currentYear)}/{currSeason}?sort=anime_num_list_users&limit=50&nsfw=true"
     response = requests.get(url, headers = {
         'X-MAL-CLIENT-ID': keys.client_id
     })
@@ -14,6 +19,8 @@ def generateTop10():
     anime_id = anime['data'][0]['node']['id']
 
     anime_dict = {}
+
+    
 
     count = 0
     for i in range(50):
@@ -28,23 +35,27 @@ def generateTop10():
         anime_data_json = anime_data.json()
         anime_data.close() 
     
-        if(anime_data_json['start_season']['year'] == 2023) and (anime_data_json['start_season']['season'] == 'summer') and (anime_data_json['media_type'] == 'tv'): 
+        if ('mean' not in anime_data_json):
+            print(anime_data_json['title'])
+            continue
+
+        if(anime_data_json['start_season']['year'] == currentYear) and (anime_data_json['start_season']['season'] == currSeason) and (anime_data_json['media_type'] == 'tv'): 
             print(anime_data_json['title'])
             print(i)
             anime_dict[anime_title] = anime_data_json['mean']
 
     sorted_by_values = sorted(anime_dict.items(), key=lambda x: -x[1])
     sorted_anime = list(sorted_by_values)
-    top_10 = []
+    top10 = []
 
-    for i in range(10):
-        top_10.append(sorted_anime[i])
+    for i in range(min(len(sorted_anime), 10)):
+        top10.append(sorted_anime[i])
 
-    print(top_10)
+    print(top10)
 
-    # Replace the text with whatever you want to Tweet about
-    tweet = 'Summer 2023 Anime Rankings Week 13 \n\n'
-    for i in range(5):
-        tweet = tweet + str(i + 1) + ". " + top_10[i][0] + ": " + str(top_10[i][1]) + "\n"
+    capitalSeason = currSeason.capitalize()
+    tweet = f"{capitalSeason} {currentYear} Anime Rankings Week {str(currWeek)} \n\n"
+    for i in range(min(5, len(top10))):
+        tweet = tweet + str(i + 1) + ". " + top10[i][0] + ": " + str(top10[i][1]) + "\n"
     
     return tweet
