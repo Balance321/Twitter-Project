@@ -18,8 +18,4 @@ access_token_secret_final = 'tgdOpsmHxugWPEZcVcR73J4I4j395DChhpaTOP664kzqN'
 client_id = 'adda09f6a4fc2b591f6e65028d31f458'
 client_secret = 'f359587358e78986a66d2645cf18a42fade7748936d5cb27a0016c04c7403453'
 
-
-# Current data/season
 # Schedule tweets for end of the week
-# Edge Cases: Anime with no means
-# Keep track of the week number
