@@ -1,1 +1,3 @@
-A digital companion designed to simplify your quest for the best anime of the season. Leveraging the MyAnimeList (MAL) database and the power of social media.
+Introducing your ultimate anime companion - a clever fusion of technology and fandom that will revolutionize your anime-watching experience. This digital companion is designed to be your trusted guide in the ever-evolving world of anime, and when paired with a Raspberry Pi, it becomes your loyal weekly anime advisor.
+
+At its core, this digital companion is a software application that taps into the extensive MyAnimeList (MAL) database, one of the most comprehensive and up-to-date repositories of anime information available. Its primary mission is to simplify your quest for the best anime of the season, making it easier than ever to discover hidden gems and best new anime of the season. 
