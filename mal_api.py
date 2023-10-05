@@ -12,7 +12,7 @@ def generateTop10():
     
     response = requests.get(url, headers = {
         'X-MAL-CLIENT-ID': keys.client_id
-    }, timeout = 60)
+    }, timeout = 600)
 
     response.raise_for_status()
     anime = response.json()
@@ -32,7 +32,7 @@ def generateTop10():
     
         anime_data = requests.get(anime_url, headers = {
             'X-MAL-CLIENT-ID': keys.client_id
-        }, timeout = 60)
+        }, timeout = 600)
         anime_data.raise_for_status()
         anime_data_json = anime_data.json()
         anime_data.close() 
