@@ -1,3 +1,4 @@
+#! /usr/bin/python3
 import mal_api
 import twitter_api
 
