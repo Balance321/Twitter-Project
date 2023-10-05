@@ -8,9 +8,11 @@ def generateTop10():
     print(currentYear, currWeek, currSeason)
 
     url = f"https://api.myanimelist.net/v2/anime/season/{str(currentYear)}/{currSeason}?sort=anime_num_list_users&limit=50&nsfw=true"
+
+    
     response = requests.get(url, headers = {
         'X-MAL-CLIENT-ID': keys.client_id
-    })
+    }, timeout = 60)
 
     response.raise_for_status()
     anime = response.json()
@@ -30,7 +32,7 @@ def generateTop10():
     
         anime_data = requests.get(anime_url, headers = {
             'X-MAL-CLIENT-ID': keys.client_id
-        })
+        }, timeout = 60)
         anime_data.raise_for_status()
         anime_data_json = anime_data.json()
         anime_data.close() 
