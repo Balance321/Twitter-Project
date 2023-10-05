@@ -1,5 +1,6 @@
 import keys_test as keys
 import requests
+from requests.exceptions import Timeout
 from date import currentYear
 from date import currWeek
 from date import currSeason
@@ -9,10 +10,16 @@ def generateTop10():
 
     url = f"https://api.myanimelist.net/v2/anime/season/{str(currentYear)}/{currSeason}?sort=anime_num_list_users&limit=50&nsfw=true"
 
+    for q in range(1000): 
+            try: 
+                response = requests.get(url, headers = {
+                'X-MAL-CLIENT-ID': keys.client_id
+                }, timeout = 60)
+                break
+            except Timeout:
+                print("Timeout occurred...retrying")
     
-    response = requests.get(url, headers = {
-        'X-MAL-CLIENT-ID': keys.client_id
-    }, timeout = 100)
+    
 
     response.raise_for_status()
     anime = response.json()
@@ -29,10 +36,17 @@ def generateTop10():
         anime_title = anime['data'][i]['node']['title']
         anime_id = anime['data'][i]['node']['id']
         anime_url = 'https://api.myanimelist.net/v2/anime/' + str(anime_id) + '?fields=id,title,main_picture,alternative_titles,start_date,end_date,mean,rank,popularity,num_list_users,num_scoring_users,nsfw,created_at,updated_at,media_type,status,genres,my_list_status,num_episodes,start_season,broadcast,source,average_episode_duration,rating,pictures,background,related_anime,related_manga,studios,statistics'
-    
-        anime_data = requests.get(anime_url, headers = {
-            'X-MAL-CLIENT-ID': keys.client_id
-        }, timeout = 100)
+
+        for p in range(1000): 
+            try: 
+                anime_data = requests.get(anime_url, headers = {
+                    'X-MAL-CLIENT-ID': keys.client_id
+                }, timeout = 60)
+                break
+            except Timeout:
+                print("Timeout occurred...retrying")
+                
+        
         anime_data.raise_for_status()
         anime_data_json = anime_data.json()
         anime_data.close() 
