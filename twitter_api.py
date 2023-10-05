@@ -2,7 +2,7 @@ import keys_test as keys
 import tweepy
 
 def generateTweet(tweet): 
-    """
+    
     client = tweepy.Client(consumer_key        = keys.api_key_final,
                            consumer_secret     = keys.api_secret_final,
                            access_token        = keys.access_token_final,
@@ -17,3 +17,4 @@ def generateTweet(tweet):
 
     api = tweepy.API(auth)
     api.update_status(tweet)
+    """
